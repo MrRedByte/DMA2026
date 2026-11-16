@@ -3,10 +3,6 @@ package ro.ase.ie.g1099.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResult;
@@ -17,27 +13,30 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
 import ro.ase.ie.g1099.R;
+import ro.ase.ie.g1099.adapter.MovieAdapter;
 import ro.ase.ie.g1099.model.Movie;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MovieAdapter.OnMovieListener {
 
     protected static final String POSITION_EXTRA = "position";
     protected static final String MOVIE_EXTRA = "movie";
     private FloatingActionButton fabInsert;
-    private ListView listView;
+    private RecyclerView recyclerView;
     private ActivityResultLauncher<Intent> launcher;
     private final List<Movie> movies = new ArrayList<>();
-    private ArrayAdapter<Movie> movieAdapter;
+    //    private ArrayAdapter<Movie> movieAdapter;
+    private MovieAdapter movieAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +50,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         addSampleMovies();
+        movieAdapter = new MovieAdapter(movies, this);
 
-        movieAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, movies);
+//        movieAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, movies);
         initControls();
         initListeners();
 
@@ -89,21 +89,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+       /* listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MainActivity.this, ItemActivity.class);
-                intent.putExtra(MOVIE_EXTRA, movies.get(position));
-                intent.putExtra(POSITION_EXTRA, position);
-                launcher.launch(intent);
+
             }
-        });
+        });*/
     }
 
     private void initControls() {
         fabInsert = findViewById(R.id.floatingActionButton);
-        listView = findViewById(R.id.listView);
-        listView.setAdapter(movieAdapter);
+        recyclerView = findViewById(R.id.rvMovies);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(movieAdapter);
     }
 
     private void addSampleMovies() {
@@ -142,5 +140,13 @@ public class MainActivity extends AppCompatActivity {
                 "R",
                 true,
                 "https://example.com/posters/the-matrix.jpg"));
+    }
+
+    @Override
+    public void onMovieClick(Movie movie, int position) {
+        Intent intent = new Intent(MainActivity.this, ItemActivity.class);
+        intent.putExtra(MOVIE_EXTRA, movies.get(position));
+        intent.putExtra(POSITION_EXTRA, position);
+        launcher.launch(intent);
     }
 }
