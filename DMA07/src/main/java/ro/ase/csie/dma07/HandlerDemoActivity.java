@@ -60,6 +60,8 @@ public class HandlerDemoActivity extends AppCompatActivity {
             // Style B: post a Runnable to run on the main thread
             mainHandler.post(() -> tvStatus.setText("Almost there…"));
 
+            try { Thread.sleep(1000); } catch (InterruptedException ignored) {}   // let it show
+
             Message done = mainHandler.obtainMessage(MSG_DONE, "all data loaded");
             mainHandler.sendMessage(done);
         }).start());

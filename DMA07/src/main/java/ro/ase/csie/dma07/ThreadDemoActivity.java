@@ -37,7 +37,7 @@ public class ThreadDemoActivity extends AppCompatActivity {
             new Thread(() -> {
                 long sum = 0;
                 for (int i = 1; i <= 100; i++) {
-                    for (int j = 0; j < 2_000_000; j++) sum += j;   // fake heavy work
+                    for (int j = 0; j < 20_000_000; j++) sum += j;   // fake heavy work
                     final int percent = i;
                     // Can't touch views here — hop to the UI thread:
                     runOnUiThread(() -> tvProgress.setText("Working… " + percent + "%"));
