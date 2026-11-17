@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">DMA08B</string>
+    <string name="screen_title">Todos</string>
+    <string name="retry">Retry</string>
+    <string name="user_format">User #%1$d</string>
+    <string name="error_timeout">The server took too long to answer. Try again.</string>
+    <string name="error_no_connection">No connection. Check your Internet and try again.</string>
+    <string name="error_server">The server could not handle the request (HTTP %1$d).</string>
+    <string name="error_unexpected">Unexpected data received from the server.</string>
+</resources>
