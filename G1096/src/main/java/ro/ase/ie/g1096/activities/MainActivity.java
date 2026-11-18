@@ -244,5 +244,5 @@ return false;
 public void onSwiped(RecyclerView.ViewHolder h, int direction) {
 deleteAt(h.getBindingAdapterPosition());
 }
-}).attachToRecyclerView(binding.list);
+}).attachToRecyclerView(binding.list);  
 */
