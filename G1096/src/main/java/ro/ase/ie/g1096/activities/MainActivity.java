@@ -231,3 +231,18 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnMo
                 }).setPositiveButton("Cancel", null).show();
     }
 }
+
+/*
+new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
+0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+@Override
+public boolean onMove(RecyclerView rv, RecyclerView.ViewHolder a,
+RecyclerView.ViewHolder b) {
+return false;
+}
+@Override
+public void onSwiped(RecyclerView.ViewHolder h, int direction) {
+deleteAt(h.getBindingAdapterPosition());
+}
+}).attachToRecyclerView(binding.list);
+*/
